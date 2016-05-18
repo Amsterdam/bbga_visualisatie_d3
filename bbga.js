@@ -4,7 +4,9 @@ d3.selection.prototype.moveToFront = function() {
   });
 };
 
-function bbga_personen() {
+window.BBGA = {};
+
+window.BBGA.Personen = function () {
 	this.svg = null;
 	this.parent = '';
 	this.data = [];
@@ -18,7 +20,7 @@ function bbga_personen() {
 	this.xdomain = [];
 }
 
-bbga_personen.prototype.wrap=function(text, width) {
+window.BBGA.Personen.prototype.wrap=function(text, width) {
   text.each(function() {
     var text = d3.select(this),
         words = text.text().split(/\s+/).reverse(),
@@ -42,7 +44,7 @@ bbga_personen.prototype.wrap=function(text, width) {
   });
 }
 
-bbga_personen.prototype.appendTo=function(obj) {
+window.BBGA.Personen.prototype.appendTo=function(obj) {
 	this.parent = obj;
 
 	this.height = d3.select(this.parent).style('height').replace('px','');
@@ -55,15 +57,15 @@ bbga_personen.prototype.appendTo=function(obj) {
 		.attr("transform", "translate(" + this.marginleft + ","+ this.margintop +")");			
 }
 
-bbga_personen.prototype.getInnerWidth=function() {
+window.BBGA.Personen.prototype.getInnerWidth=function() {
 	return (this.width-this.marginleft-this.marginright);
 }
 
-bbga_personen.prototype.getInnerHeight=function() {
+window.BBGA.Personen.prototype.getInnerHeight=function() {
 	return (this.height-this.margintop-this.marginbottom);
 }
 
-bbga_personen.prototype.createAxis=function(data) {
+window.BBGA.Personen.prototype.createAxis=function(data) {
 	var self = this;
 	
 	this.x0 =
@@ -104,7 +106,7 @@ bbga_personen.prototype.createAxis=function(data) {
 		.call(this.wrap, this.x0.rangeBand());
 }
 
-bbga_personen.prototype.createGrid=function() {
+window.BBGA.Personen.prototype.createGrid=function() {
 	this.gridx = d3.svg.axis()
 		.scale(this.x0)
 		.orient("bottom")
@@ -135,7 +137,7 @@ bbga_personen.prototype.createGrid=function() {
 		);
 }
 
-bbga_personen.prototype.createRegion=function() {
+window.BBGA.Personen.prototype.createRegion=function() {
 	region = this.svg.append("g")
 		.attr("class", "region")
 
@@ -152,7 +154,7 @@ bbga_personen.prototype.createRegion=function() {
 			.attr("y", "0px")				
 }
 
-bbga_personen.prototype.addIcons=function() {
+window.BBGA.Personen.prototype.addIcons=function() {
 	this.svg.append('g')
 		
 	h = 40;
@@ -291,7 +293,7 @@ bbga_personen.prototype.addIcons=function() {
 			.attr("class", "axis frame");
 }
 
-bbga_personen.prototype.createLegend=function(data) {
+window.BBGA.Personen.prototype.createLegend=function(data) {
 	var self = this;
 	text = this.svg.selectAll('.legend.text')
 		.data(data, function(d, i) {
@@ -346,7 +348,7 @@ bbga_personen.prototype.createLegend=function(data) {
 				// .attr("dy", ".35em");
 }
 
-bbga_personen.prototype.createBar=function(data) {
+window.BBGA.Personen.prototype.createBar=function(data) {
 	var self = this;
 	var ymax = 0;
 	var ymin = 0;
@@ -497,7 +499,7 @@ bbga_personen.prototype.createBar=function(data) {
 	})
 }
 
-bbga_personen.prototype.createDate=function(data) {
+window.BBGA.Personen.prototype.createDate=function(data) {
 	tmp = this.svg.selectAll('.date')
 		.data(['peildatum '+data])
 	tmp.exit()
@@ -513,8 +515,8 @@ bbga_personen.prototype.createDate=function(data) {
 	tmp.text(function(d) { return d; });
 }
 
-bbga_personen.prototype.create=function(obj, data) {
-	obj.setAttribute('class', 'bbga_personen');
+window.BBGA.Personen.prototype.create=function(obj, data) {
+	obj.setAttribute('class', 'window.BBGA.Personen');
 
 	labels = [];
 	labels[0] = data['BEVPAARMKINDHH_P']['meta']['label'];
@@ -548,7 +550,7 @@ bbga_personen.prototype.create=function(obj, data) {
 	this.addIcons();
 }
 
-function bbga_huizen() {
+window.BBGA.Huizen = function () {
 	this.svg = null;
 	this.parent = '';
 	this.data = [];
@@ -561,7 +563,7 @@ function bbga_huizen() {
 	this.transition = 750;
 }
 
-bbga_huizen.prototype.appendTo=function(obj) {
+window.BBGA.Huizen.prototype.appendTo=function(obj) {
 	this.parent = obj;
 
 	this.height = d3.select(this.parent).style('height').replace('px','');
@@ -574,15 +576,15 @@ bbga_huizen.prototype.appendTo=function(obj) {
 		.attr("transform", "translate(" + this.marginleft + ","+ this.margintop +")");			
 }
 
-bbga_huizen.prototype.getInnerWidth=function() {
+window.BBGA.Huizen.prototype.getInnerWidth=function() {
 	return (this.width-this.marginleft-this.marginright);
 }
 
-bbga_huizen.prototype.getInnerHeight=function() {
+window.BBGA.Huizen.prototype.getInnerHeight=function() {
 	return (this.height-this.margintop-this.marginbottom);
 }
 
-bbga_huizen.prototype.createDonut=function(data) {
+window.BBGA.Huizen.prototype.createDonut=function(data) {
 	var self = this;
 	this.radius = (Math.min(this.getInnerWidth(), this.getInnerHeight()) / 2)-10;
 
@@ -662,7 +664,7 @@ bbga_huizen.prototype.createDonut=function(data) {
 		this.firstrun = false;
 }
 
-bbga_huizen.prototype.createInfo=function(a, b) {
+window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 	var woz_top = 155;
 	var woz_height = 30;
 	var woz_width = 30;
@@ -885,7 +887,7 @@ bbga_huizen.prototype.createInfo=function(a, b) {
 		.attr('transform', 'translate(-389.99 -273.62)')
 }
 
-bbga_huizen.prototype.createDate=function(data) {
+window.BBGA.Huizen.prototype.createDate=function(data) {
 	tmp = this.svg.selectAll('.woz.date')
 		.data(["*peildatum "+data])
 
@@ -901,7 +903,7 @@ bbga_huizen.prototype.createDate=function(data) {
 	tmp.text(function(d) { return d; });
 }
 
-bbga_huizen.prototype.createDonutDate=function() {
+window.BBGA.Huizen.prototype.createDonutDate=function() {
 	this.date = this.svg.selectAll('.donut.date')
 		.data(["peildatum 2013"], function(d) {
 			return d;
@@ -917,7 +919,7 @@ bbga_huizen.prototype.createDonutDate=function() {
 		.text(function(d) { return d; });
 }
 
-bbga_huizen.prototype.createLegend=function(data) {
+window.BBGA.Huizen.prototype.createLegend=function(data) {
 	var self = this;
 	text = this.svg.selectAll('.legend.text')
 		.data(data, function(d, i) {
@@ -960,8 +962,8 @@ bbga_huizen.prototype.createLegend=function(data) {
 				})
 }
 
-bbga_huizen.prototype.create=function(obj, data) {
-	obj.setAttribute('class', 'bbga_huizen');
+window.BBGA.Huizen.prototype.create=function(obj, data) {
+	obj.setAttribute('class', 'window.BBGA.Huizen');
 
 	labels = [];
 	labels[0] = data['WKOOP_P']['meta']['label'];

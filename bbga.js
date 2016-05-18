@@ -516,7 +516,7 @@ window.BBGA.Personen.prototype.createDate=function(data) {
 }
 
 window.BBGA.Personen.prototype.create=function(obj, data) {
-	obj.setAttribute('class', 'window.BBGA.Personen');
+	obj.setAttribute('class', 'bbga_personen');
 
 	labels = [];
 	labels[0] = data['BEVPAARMKINDHH_P']['meta']['label'];
@@ -963,7 +963,7 @@ window.BBGA.Huizen.prototype.createLegend=function(data) {
 }
 
 window.BBGA.Huizen.prototype.create=function(obj, data) {
-	obj.setAttribute('class', 'window.BBGA.Huizen');
+	obj.setAttribute('class', 'bbga_huizen');
 
 	labels = [];
 	labels[0] = data['WKOOP_P']['meta']['label'];

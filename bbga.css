@@ -7,7 +7,7 @@
     url("liberation-sans.svg#Liberation Sans") format("svg");
 }
 
-#vis, #vis1 {
+#bbga_personen, #bbga_huizen {
     width: 500px;
     height: 300px;
     border: 1px solid black;
@@ -19,169 +19,169 @@ body {
     font-weight: 400;
 }
 
-#vis .x-axis text {
+#bbga_personen .x-axis text {
     font-weight: 800;
 }
 
-#vis .y-axis text {
+#bbga_personen .y-axis text {
     fill: #999;
     font-size: 11px;
 }
 
 
-#vis .axis line {
+#bbga_personen .axis line {
     display: none;
 }
 
-#vis .axis .domain {
+#bbga_personen .axis .domain {
     display: none;
 }
 
-#vis .bars text {
+#bbga_personen .bars text {
     fill: #000;
 }
 
-#vis .axis line {
+#bbga_personen .axis line {
     fill: #ccc;
 }
 
-#vis .bars.bar-0 {
+#bbga_personen .bars.bar-0 {
     fill: #999999;
 }
 
-#vis .bars.bar-1 {
+#bbga_personen .bars.bar-1 {
     fill: #FF0000;
 }
 
-#vis .region rect {
+#bbga_personen .region rect {
     fill: #000000;
     fill-opacity: 0.07;
 }
 
-#vis .grid.y-axis, #vis .grid.x-axis {
+#bbga_personen .grid.y-axis, #bbga_personen .grid.x-axis {
     stroke: #d9d9d9;
     fill: none;
     shape-rendering: crispEdges;
 }
 
-#vis .grid.x-axis  {
+#bbga_personen .grid.x-axis  {
     display: none;
 }
 
-#vis .date, #vis1 .date {
+#bbga_personen .date, #bbga_huizen .date {
     font-style: italic;
     fill: #AAAAAA;
 }
 
-#vis .legend {
+#bbga_personen .legend {
     font-weight: 800;
 }
 
-#vis .legend.block-1, #vis1 .custom.block-1, #vis1 .custom .woz .block-1 {
+#bbga_personen .legend.block-1, #bbga_huizen .custom.block-1, #bbga_huizen .custom .woz .block-1 {
     fill: #FF0000;
 }
 
-#vis .legend.block-0, #vis1 .custom.block-0, #vis1 .custom .woz .block-0 {
+#bbga_personen .legend.block-0, #bbga_huizen .custom.block-0, #bbga_huizen .custom .woz .block-0 {
     fill: #AAAAAA;
 }
 
-#vis1 .custom.woz.text {
+#bbga_huizen .custom.woz.text {
     fill: #fff;
     font-size: 19px;
 }
 
-#vis1 .legend.text-0, #vis1 .legend.text-2 {
+#bbga_huizen .legend.text-0, #bbga_huizen .legend.text-2 {
     fill: black;
     font-size: 15px;
 }
 
-#vis1 .donut.text-0, #vis1 .donut.text-2 {
+#bbga_huizen .donut.text-0, #bbga_huizen .donut.text-2 {
     fill: white;
     font-size: 15px;
 }
 
-#vis1 .donut.text-1 {
+#bbga_huizen .donut.text-1 {
     fill: black;
     font-size: 15px;
 }
 
-#vis1 .legend.text-1{
+#bbga_huizen .legend.text-1{
     font-size: 15px;
 }
 
-#vis1 .wozdesc {
+#bbga_huizen .wozdesc {
     font-size: 15px;
 }
 
-#vis1 .legend {
+#bbga_huizen .legend {
     fill: black;
 }
 
-#vis1 .legend.block-0 {
+#bbga_huizen .legend.block-0 {
     fill: #00A0E6;
 }
 
-#vis1 .legend.block-1 {
+#bbga_huizen .legend.block-1 {
     fill: #CCCCCC;
 }
 
-#vis1 .legend.block-2 {
+#bbga_huizen .legend.block-2 {
     fill: #666666;
 }
 
-#vis1 .custom.text {
+#bbga_huizen .custom.text {
     fill: #000;
 }
 
-#vis1 .custom.gem.text {
+#bbga_huizen .custom.gem.text {
     font-weight: 800;
 }
 
-#vis .icona1 *, #vis .icona2 * {
+#bbga_personen .icona1 *, #bbga_personen .icona2 * {
     fill: #F00;
 }
 
-#vis .icona3 .cls-1 {
+#bbga_personen .icona3 .cls-1 {
     fill: #f00;
 }
 
-#vis .icona3 .cls-2 {
+#bbga_personen .icona3 .cls-2 {
     fill: #fff;
 }
 
-#vis1 .iconb1 .cls-1 {
+#bbga_huizen .iconb1 .cls-1 {
     fill: #fff;
 }
 
-#vis1 .iconb1 .cls-2 {
+#bbga_huizen .iconb1 .cls-2 {
     fill: none;
     stroke-width: 0.71px;
 }
 
-#vis1 .iconb1 .cls-2, #vis .iconb1 .cls-4 {
+#bbga_huizen .iconb1 .cls-2, #bbga_personen .iconb1 .cls-4 {
     stroke:#fff;
     stroke-miterlimit: 10;
 }
 
-#vis1 .iconb1 .cls-3, #vis .iconb1 .cls-4 {
+#bbga_huizen .iconb1 .cls-3, #bbga_personen .iconb1 .cls-4 {
     fill:#eb2227;
 }
 
-#vis1 .iconb1 .cls-4 {
+#bbga_huizen .iconb1 .cls-4 {
     stroke-width: 0.5px;
 }
 
-#vis1 .iconb1 #_Path_2, #vis1 .iconb1 #_Path_ {
+#bbga_huizen .iconb1 #_Path_2, #bbga_huizen .iconb1 #_Path_ {
     fill: #f00;
     stroke: #fff;
     stroke-width: 0.5px;
 }
 
-#vis .frame {
+#bbga_personen .frame {
     stroke: #d9d9d9;
 }
 
-#vis .axis line, #vis1 .axis path {
+#bbga_personen .axis line, #bbga_huizen .axis path {
     stroke: #000;
     fill: none;
     shape-rendering: crispEdges;

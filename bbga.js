@@ -514,6 +514,8 @@ bbga_personen.prototype.createDate=function(data) {
 }
 
 bbga_personen.prototype.create=function(obj, data) {
+	obj.setAttribute('id', 'bbga_personen');
+
 	labels = [];
 	labels[0] = data['BEVPAARMKINDHH_P']['meta']['label'];
 	labels[1] = data['BEV65PLUS_P']['meta']['label'];
@@ -959,6 +961,8 @@ bbga_huizen.prototype.createLegend=function(data) {
 }
 
 bbga_huizen.prototype.create=function(obj, data) {
+	obj.setAttribute('id', 'bbga_huizen');
+
 	labels = [];
 	labels[0] = data['WKOOP_P']['meta']['label'];
 	labels[1] = data['WCORHUUR_P']['meta']['label'];

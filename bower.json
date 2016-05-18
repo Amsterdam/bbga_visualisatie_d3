@@ -1,0 +1,9 @@
+{
+  "name": "bbga_visualisatie_d3",
+  "homepage": "https://github.com/DatapuntAmsterdam/bbga_visualisatie_d3",
+  "description": "",
+  "main": [
+    "bbga.js",
+    "bbga.css"
+  ]
+}

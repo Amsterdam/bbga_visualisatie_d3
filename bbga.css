@@ -7,7 +7,7 @@
     url("liberation-sans.svg#Liberation Sans") format("svg");
 }
 
-#bbga_personen, #bbga_huizen {
+.bbga_personen, .bbga_huizen {
     width: 500px;
     height: 300px;
     border: 1px solid black;
@@ -19,169 +19,169 @@ body {
     font-weight: 400;
 }
 
-#bbga_personen .x-axis text {
+.bbga_personen .x-axis text {
     font-weight: 800;
 }
 
-#bbga_personen .y-axis text {
+.bbga_personen .y-axis text {
     fill: #999;
     font-size: 11px;
 }
 
 
-#bbga_personen .axis line {
+.bbga_personen .axis line {
     display: none;
 }
 
-#bbga_personen .axis .domain {
+.bbga_personen .axis .domain {
     display: none;
 }
 
-#bbga_personen .bars text {
+.bbga_personen .bars text {
     fill: #000;
 }
 
-#bbga_personen .axis line {
+.bbga_personen .axis line {
     fill: #ccc;
 }
 
-#bbga_personen .bars.bar-0 {
+.bbga_personen .bars.bar-0 {
     fill: #999999;
 }
 
-#bbga_personen .bars.bar-1 {
+.bbga_personen .bars.bar-1 {
     fill: #FF0000;
 }
 
-#bbga_personen .region rect {
+.bbga_personen .region rect {
     fill: #000000;
     fill-opacity: 0.07;
 }
 
-#bbga_personen .grid.y-axis, #bbga_personen .grid.x-axis {
+.bbga_personen .grid.y-axis, .bbga_personen .grid.x-axis {
     stroke: #d9d9d9;
     fill: none;
     shape-rendering: crispEdges;
 }
 
-#bbga_personen .grid.x-axis  {
+.bbga_personen .grid.x-axis  {
     display: none;
 }
 
-#bbga_personen .date, #bbga_huizen .date {
+.bbga_personen .date, .bbga_huizen .date {
     font-style: italic;
     fill: #AAAAAA;
 }
 
-#bbga_personen .legend {
+.bbga_personen .legend {
     font-weight: 800;
 }
 
-#bbga_personen .legend.block-1, #bbga_huizen .custom.block-1, #bbga_huizen .custom .woz .block-1 {
+.bbga_personen .legend.block-1, .bbga_huizen .custom.block-1, .bbga_huizen .custom .woz .block-1 {
     fill: #FF0000;
 }
 
-#bbga_personen .legend.block-0, #bbga_huizen .custom.block-0, #bbga_huizen .custom .woz .block-0 {
+.bbga_personen .legend.block-0, .bbga_huizen .custom.block-0, .bbga_huizen .custom .woz .block-0 {
     fill: #AAAAAA;
 }
 
-#bbga_huizen .custom.woz.text {
+.bbga_huizen .custom.woz.text {
     fill: #fff;
     font-size: 19px;
 }
 
-#bbga_huizen .legend.text-0, #bbga_huizen .legend.text-2 {
+.bbga_huizen .legend.text-0, .bbga_huizen .legend.text-2 {
     fill: black;
     font-size: 15px;
 }
 
-#bbga_huizen .donut.text-0, #bbga_huizen .donut.text-2 {
+.bbga_huizen .donut.text-0, .bbga_huizen .donut.text-2 {
     fill: white;
     font-size: 15px;
 }
 
-#bbga_huizen .donut.text-1 {
+.bbga_huizen .donut.text-1 {
     fill: black;
     font-size: 15px;
 }
 
-#bbga_huizen .legend.text-1{
+.bbga_huizen .legend.text-1{
     font-size: 15px;
 }
 
-#bbga_huizen .wozdesc {
+.bbga_huizen .wozdesc {
     font-size: 15px;
 }
 
-#bbga_huizen .legend {
+.bbga_huizen .legend {
     fill: black;
 }
 
-#bbga_huizen .legend.block-0 {
+.bbga_huizen .legend.block-0 {
     fill: #00A0E6;
 }
 
-#bbga_huizen .legend.block-1 {
+.bbga_huizen .legend.block-1 {
     fill: #CCCCCC;
 }
 
-#bbga_huizen .legend.block-2 {
+.bbga_huizen .legend.block-2 {
     fill: #666666;
 }
 
-#bbga_huizen .custom.text {
+.bbga_huizen .custom.text {
     fill: #000;
 }
 
-#bbga_huizen .custom.gem.text {
+.bbga_huizen .custom.gem.text {
     font-weight: 800;
 }
 
-#bbga_personen .icona1 *, #bbga_personen .icona2 * {
+.bbga_personen .icona1 *, .bbga_personen .icona2 * {
     fill: #F00;
 }
 
-#bbga_personen .icona3 .cls-1 {
+.bbga_personen .icona3 .cls-1 {
     fill: #f00;
 }
 
-#bbga_personen .icona3 .cls-2 {
+.bbga_personen .icona3 .cls-2 {
     fill: #fff;
 }
 
-#bbga_huizen .iconb1 .cls-1 {
+.bbga_huizen .iconb1 .cls-1 {
     fill: #fff;
 }
 
-#bbga_huizen .iconb1 .cls-2 {
+.bbga_huizen .iconb1 .cls-2 {
     fill: none;
     stroke-width: 0.71px;
 }
 
-#bbga_huizen .iconb1 .cls-2, #bbga_personen .iconb1 .cls-4 {
+.bbga_huizen .iconb1 .cls-2, .bbga_personen .iconb1 .cls-4 {
     stroke:#fff;
     stroke-miterlimit: 10;
 }
 
-#bbga_huizen .iconb1 .cls-3, #bbga_personen .iconb1 .cls-4 {
+.bbga_huizen .iconb1 .cls-3, .bbga_personen .iconb1 .cls-4 {
     fill:#eb2227;
 }
 
-#bbga_huizen .iconb1 .cls-4 {
+.bbga_huizen .iconb1 .cls-4 {
     stroke-width: 0.5px;
 }
 
-#bbga_huizen .iconb1 #_Path_2, #bbga_huizen .iconb1 #_Path_ {
+.bbga_huizen .iconb1 #_Path_2, .bbga_huizen .iconb1 #_Path_ {
     fill: #f00;
     stroke: #fff;
     stroke-width: 0.5px;
 }
 
-#bbga_personen .frame {
+.bbga_personen .frame {
     stroke: #d9d9d9;
 }
 
-#bbga_personen .axis line, #bbga_huizen .axis path {
+.bbga_personen .axis line, .bbga_huizen .axis path {
     stroke: #000;
     fill: none;
     shape-rendering: crispEdges;

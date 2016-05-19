@@ -161,9 +161,10 @@ var visualisatie_koopwooningen = {
 };
 
 window.onload=function() {
-	var obj = new bbga_personen();
+	var obj = new BBGA.Personen();
 	obj.create(document.getElementById('vis'), visualisatie_data_bevolking);
-	var obj = new bbga_huizen();
+
+    obj = new BBGA.Huizen();
 	obj.create(document.getElementById('vis1'), visualisatie_koopwooningen);
 }
 </script>

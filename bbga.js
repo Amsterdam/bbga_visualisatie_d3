@@ -430,7 +430,11 @@ window.BBGA.Personen.prototype.createBar=function(data) {
 			return "text text-"+i;
 		})
 		.text(function(d, i) {
-			return 0;
+			if(isNaN(d) == true) {
+				return '';
+			} else {
+				return 0;
+			}
 		})
 		
 	obj = text;
@@ -462,15 +466,19 @@ window.BBGA.Personen.prototype.createBar=function(data) {
 		.attr("y", function(d, i) {
 			if(d <= 100) {
 				return self.y0(d); 
-			} else {
+			} else if(isNaN(d) == false) {
 				return self.y0(100);
+			} else {
+				return 0;
 			}
 		})
 		.attr("height", function(d) {
 			if(d <= 100) {
 				return self.y0(0)-self.y0(d); 
-			} else {
+			} else if(isNaN(d) == false) {
 				return self.y0(0)-self.y0(100);
+			} else {
+				return 0;
 			}
 		})
 		.attr("width", function(d, i) {
@@ -492,10 +500,12 @@ window.BBGA.Personen.prototype.createBar=function(data) {
 		}
 	})
 	.tween("text", function(d) {
-		var i = d3.interpolate(this.textContent, d);
-		return function(t) {
-			d3.select(this).text(Math.round(i(t)));
-		};
+		if(isNaN(d) == false) {
+			var i = d3.interpolate(this.textContent, d);
+			return function(t) {
+				d3.select(this).text(Math.round(i(t)));
+			};
+		}
 	})
 }
 
@@ -533,12 +543,44 @@ window.BBGA.Personen.prototype.create=function(obj, data) {
 	waardes[0] = [];
 	waardes[1] = [];
 	waardes[2] = [];
-	waardes[0][0] = data['BEV65PLUS_P']['data'][0]['waarde'];
-	waardes[0][1] = data['BEV65PLUS_P']['data'][1]['waarde'];
-	waardes[1][0] = data['BEVPAARMKINDHH_P']['data'][0]['waarde'];
-	waardes[1][1] = data['BEVPAARMKINDHH_P']['data'][1]['waarde'];
-	waardes[2][0] = data['BEVOVNW_P']['data'][0]['waarde'];
-	waardes[2][1] = data['BEVOVNW_P']['data'][1]['waarde'];
+	waardes[0][0] = NaN; waardes[0][1] = NaN; waardes[1][0] = NaN;
+	waardes[1][1] = NaN; waardes[2][0] = NaN; waardes[2][1] = NaN;
+	if('BEV65PLUS_P' in data) {
+		if('data' in data['BEV65PLUS_P']) {
+			if(data['BEV65PLUS_P']['data'].length == 2) {
+				if('waarde' in data['BEV65PLUS_P']['data'][0]) {
+					waardes[0][0] = data['BEV65PLUS_P']['data'][0]['waarde'];
+				}
+				if('waarde' in data['BEV65PLUS_P']['data'][1]) {
+					waardes[0][1] = data['BEV65PLUS_P']['data'][1]['waarde'];
+				}
+			}
+		}
+	}
+	if('BEVPAARMKINDHH_P' in data) {
+		if('data' in data['BEVPAARMKINDHH_P']) {
+			if(data['BEVPAARMKINDHH_P']['data'].length == 2) {
+				if('waarde' in data['BEVPAARMKINDHH_P']['data'][0]) {
+					waardes[1][0] = data['BEVPAARMKINDHH_P']['data'][0]['waarde'];
+				}
+				if('waarde' in data['BEVPAARMKINDHH_P']['data'][1]) {
+					waardes[1][1] = data['BEVPAARMKINDHH_P']['data'][1]['waarde'];
+				}
+			}
+		}
+	}
+	if('BEVOVNW_P' in data) {
+		if('data' in data['BEVOVNW_P']) {
+			if(data['BEVOVNW_P']['data'].length == 2) {
+				if('waarde' in data['BEVOVNW_P']['data'][0]) {
+					waardes[2][0] = data['BEVOVNW_P']['data'][0]['waarde'];
+				}
+				if('waarde' in data['BEVOVNW_P']['data'][1]) {
+					waardes[2][1] = data['BEVOVNW_P']['data'][1]['waarde'];
+				}
+			}
+		}
+	}
 
 	this.appendTo(obj);
 	this.createAxis(labels);
@@ -587,13 +629,31 @@ window.BBGA.Huizen.prototype.getInnerHeight=function() {
 window.BBGA.Huizen.prototype.createDonut=function(data) {
 	var self = this;
 	this.radius = (Math.min(this.getInnerWidth(), this.getInnerHeight()) / 2)-10;
-
+	
+	nrNaN = 0;
+	for(i in data) {
+		if(isNaN(data[i]) == true || data[i] == 0) {
+			nrNaN++;
+		}
+	}
+	if(nrNaN == data.length) {
+		for(i in data) {
+			data[i] = Math.round(100/data.length);
+		}
+	}
+	
 	this.arc = d3.svg.arc()
 		.innerRadius(this.radius - (this.radius / 2))
 		.outerRadius(this.radius);
 
 	this.pie = d3.layout.pie()
-		.value(function(d) {  return d; })
+		.value(function(d) {
+			if(isNaN(d) == false) {
+				return d;
+			} else {
+				return 0;
+			}
+		})
 		.sort(null);
 
 	this.donut = this.svg.append('g')
@@ -615,17 +675,32 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 			.attr('transform', 'translate(' + ((this.getInnerWidth() / 2)-150) + ',' + (this.getInnerHeight() / 2) + ')')
 			.attr('d', this.arc)
 			.attr('fill', function(d, i) { 
-				switch(i) {
-					case 0:
-						return '#00A0E6';
-					break;
-					default:
-					case 1:
-						return '#CCCCCC';
-					break;
-					case 2:
-						return '#666666';
-					break;
+				if(nrNaN == data.length) {
+					switch(i) {
+						case 0:
+							return '#CCCCCC';
+						break;
+						default:
+						case 1:
+							return '#EEEEEE';
+						break;
+						case 2:
+							return '#DDDDDD';
+						break;
+					}
+				} else {
+					switch(i) {
+						case 0:
+							return '#00A0E6';
+						break;
+						default:
+						case 1:
+							return '#CCCCCC';
+						break;
+						case 2:
+							return '#666666';
+						break;
+					}
 				}
 			})
 			.each(function(d) { 
@@ -633,7 +708,7 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 			});
 			
 		this.text = this.svg.selectAll('.donut.piece.text')
-			.data(this.pie(data))
+			.data(this.pie(data));
 
 		tmp = this.text.remove()
 		if(this.transition > 0) {
@@ -649,7 +724,13 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 				return "donut text text-"+i;
 			})
 			.text(function(d, i) {
-				return d.data+"%";
+				if(nrNaN == data.length) {
+					return '?';
+				} else if(isNaN(d.data) == false) {
+					return d.data+"%";
+				} else {
+					return '';
+				}
 			})
 			.attr("transform", function(d) {
 				var x = self.arc.centroid(d);
@@ -679,7 +760,7 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 	var self = this;
 	text = this.svg.selectAll('.custom.gem.text')
 		.data(a, function(d, i) {
-			return d;
+			return i+' '+d;
 		})
 	
 	tmp = text.exit();
@@ -748,8 +829,8 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 				// .attr("dy", ".35em");
 
 	text = this.svg.selectAll('.custom.woz.text')
-		.data(b, function(d) {
-			return d;
+		.data(b, function(d, i) {
+			return i+' '+d;
 		});
 
 	tmp = text.exit();
@@ -903,9 +984,9 @@ window.BBGA.Huizen.prototype.createDate=function(data) {
 	tmp.text(function(d) { return d; });
 }
 
-window.BBGA.Huizen.prototype.createDonutDate=function() {
+window.BBGA.Huizen.prototype.createDonutDate=function(data) {
 	this.date = this.svg.selectAll('.donut.date')
-		.data(["peildatum 2013"], function(d) {
+		.data(["peildatum "+data], function(d) {
 			return d;
 		})
 
@@ -974,17 +1055,60 @@ window.BBGA.Huizen.prototype.create=function(obj, data) {
 	yearw = data['WWOZ_M2']['meta']['jaar'];
 
 	waardes = [];
-	waardes[0] = Math.round(data['WKOOP_P']['data'][0]['waarde']);
-	waardes[1] = Math.round(data['WCORHUUR_P']['data'][0]['waarde']);
-	waardes[2] = Math.round(data['WPARTHUUR_P']['data'][0]['waarde']);
+	waardes[0] = NaN;
+	waardes[1] = NaN;
+	waardes[2] = NaN;
+	if('WKOOP_P' in data) {
+		if('data' in data['WKOOP_P']) {
+			if(data['WKOOP_P']['data'].length == 1) {
+				if('waarde' in data['WKOOP_P']['data'][0]) {
+					waardes[0] = Math.round(data['WKOOP_P']['data'][0]['waarde']);
+				}
+			}
+		}
+	}
+	if('WCORHUUR_P' in data) {
+		if('data' in data['WCORHUUR_P']) {
+			if(data['WCORHUUR_P']['data'].length == 1) {
+				if('waarde' in data['WCORHUUR_P']['data'][0]) {
+					waardes[1] = Math.round(data['WCORHUUR_P']['data'][0]['waarde']);
+				}
+			}
+		}
+	}
+	if('WPARTHUUR_P' in data) {
+		if('data' in data['WPARTHUUR_P']) {
+			if(data['WPARTHUUR_P']['data'].length == 1) {
+				if('waarde' in data['WPARTHUUR_P']['data'][0]) {
+					waardes[2] = Math.round(data['WPARTHUUR_P']['data'][0]['waarde']);
+				}
+			}
+		}
+	}
 
 	legend = [];
 	legend[0] = data['WWOZ_M2']['data'][0]['label'];
 	legend[1] = data['WWOZ_M2']['data'][1]['label'];
 	
 	waardes1 = [];
-	waardes1[0] = '€ '+data['WWOZ_M2']['data'][0]['waarde']+',-';
-	waardes1[1] = '€ '+data['WWOZ_M2']['data'][1]['waarde']+',-';
+	waardes1[0] = '€ ...';
+	waardes1[1] = '€ ...';
+	if('WWOZ_M2' in data) {
+		if(data['WWOZ_M2']['data'].length >= 1) {
+			if('waarde' in data['WWOZ_M2']['data'][0]) {
+				if(isNaN(data['WWOZ_M2']['data'][0]['waarde']) == false) {
+					waardes1[0] = '€ '+data['WWOZ_M2']['data'][0]['waarde']+',-';
+				}
+			}
+		}
+		if(data['WWOZ_M2']['data'].length >= 2) {
+			if('waarde' in data['WWOZ_M2']['data'][1]) {
+				if(isNaN(data['WWOZ_M2']['data'][1]['waarde']) == false) {
+					waardes1[1] = '€ '+data['WWOZ_M2']['data'][1]['waarde']+',-';
+				}
+			}
+		}
+	}
 	
 	this.appendTo(obj);
 	this.createDonut(waardes);

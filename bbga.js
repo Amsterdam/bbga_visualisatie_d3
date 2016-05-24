@@ -594,7 +594,8 @@ window.BBGA.Huizen.prototype.appendTo=function(obj) {
 		.attr("width", this.width)
 		.attr("height", this.height)
 	.append("svg:g")
-		.attr("transform", "translate(" + this.marginleft + ","+ this.margintop +")");			
+		.attr("transform", "translate(" + this.marginleft + ","+ this.margintop +")")
+		.attr("class", "donut");
 }
 
 window.BBGA.Huizen.prototype.getInnerWidth=function() {
@@ -635,8 +636,8 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 		.sort(null);
 
 	this.donut = this.svg.append('g')
-		.attr("class", "donut")
-		.selectAll('.donut.piece')
+		.attr("class", "circle")
+		.selectAll('.donut .circle .piece')
 		.data(this.pie(data));
 
 		tmp = this.donut.exit()
@@ -678,7 +679,7 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 				this._current = d; 
 			});
 			
-		this.text = this.svg.selectAll('.donut.piece.text')
+		this.text = this.svg.select('.donut .circle').selectAll('.donut .piece .text')
 			.data(this.pie(data));
 
 		tmp = this.text.remove()
@@ -693,9 +694,9 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 			.style("opacity", 0)
 			.attr("class", function(d, i) {
 				if(nrNaN == nrGroups) {
-					return "donut text text-1";
+					return "text text-1";
 				} else {
-					return "donut text text-"+i;
+					return "text text-"+i;
 				}
 			})
 			.text(function(d, i) {
@@ -733,7 +734,14 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 	var text_height = 23;
 
 	var self = this;
-	text = this.svg.selectAll('.custom.gem.text')
+	wozgroup = this.svg.append('g')
+		.attr("class", "woz")
+	woznumber = wozgroup.append('g')
+		.attr("class", "numbers");
+	wozarea = wozgroup.append('g')
+		.attr("class", "area");	
+
+	text = wozarea.selectAll('.text')
 		.data(a, function(d, i) {
 			return i+' '+d;
 		})
@@ -751,7 +759,7 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 		.append("text")
 			.style("opacity", 0)
 			.attr("class", function(d, i) {
-				return "custom gem text text-"+i;
+				return "text text-"+i;
 			})
 			.text(function(d) { return d; })
 			.attr("transform", function(d, i) {
@@ -767,30 +775,12 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 		tmp.style("opacity", 1);
 	}
 
-	this.svg.selectAll('.custom.block')
+	woznumber.selectAll('.block')
 		.data(b)
 		.enter()
 			.append("rect")
 				.attr("class", function(d, i) {
-					return "custom block block-"+i;
-				})
-				.attr("width", "12")
-				.attr("height", "12")
-				.attr("transform", function(d, i) {
-					if(i == 0) {
-						return "translate("+((self.getInnerWidth()-woz_left)-(this.getBBox().width)-(padding/2))+","+ (woz_top+woz_height+28+this.getBBox().height) + ")"
-					} else {
-						return "translate("+((self.getInnerWidth()-woz_left)+(padding/2))+","+ (woz_top+woz_height+28+this.getBBox().height) + ")"
-					}
-				})
-				// .attr("dy", ".35em");
-				
-	this.svg.selectAll('.custom.woz.block')
-		.data(b)
-		.enter()
-			.append("rect")
-				.attr("class", function(d, i) {
-					return "custom woz block block-"+i;
+					return "block block-"+i;
 				})
 				.attr("width", "120")
 				.attr("height", woz_height)
@@ -802,8 +792,26 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 					}
 				})
 				// .attr("dy", ".35em");
+	
+	wozarea.selectAll('.block')
+		.data(b)
+		.enter()
+			.append("rect")
+				.attr("class", function(d, i) {
+					return "block block-"+i;
+				})
+				.attr("width", "12")
+				.attr("height", "12")
+				.attr("transform", function(d, i) {
+					if(i == 0) {
+						return "translate("+((self.getInnerWidth()-woz_left)-(this.getBBox().width)-(padding/2))+","+ (woz_top+woz_height+28+this.getBBox().height) + ")"
+					} else {
+						return "translate("+((self.getInnerWidth()-woz_left)+(padding/2))+","+ (woz_top+woz_height+28+this.getBBox().height) + ")"
+					}
+				})
+				// .attr("dy", ".35em");
 
-	text = this.svg.selectAll('.custom.woz.text')
+	text = woznumber.selectAll('.text')
 		.data(b, function(d, i) {
 			return i+' '+d;
 		});
@@ -819,7 +827,7 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 		.append("text")
 			.style("opacity", 0)
 			.attr("class", function(d, i) {
-				return "custom woz text text-"+i;
+				return "text text-"+i;
 			})
 			.text(function(d) { return d; })
 			.attr("transform", function(d, i) {
@@ -835,14 +843,14 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 		tmp.style("opacity", 1);
 	}
 
-	woz = this.svg.selectAll('.wozdesc')
+	woz = wozgroup.selectAll('.desc')
 		.data(["*gemiddelde WOZ-waarde per m²"], function(d, i) {
 			return d;
 		})
 		.enter()
 		.append("text")
 			.attr("class", function(d, i) {
-				return "wozdesc";
+				return "desc";
 			})
 			.text(function(d) { return d; })
 			.attr("transform", function(d, i) {
@@ -852,7 +860,7 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 	/*
 	 * Huisjes
 	 */
-	var donut = d3.select('.donut').node().getBBox();
+	var donut = d3.select('.donut .circle').node().getBBox();
 	h = 100;
 	s = Math.abs(55.08/47.82)
 	el = this.svg
@@ -861,7 +869,7 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 		.attr("viewBox", "0 0 55.08 47.82")
 		.attr("width", (h * s))
 		.attr("height", h)
-		.attr("x", donut.x+(this.radius-((h*s)/2)))
+		.attr("x", -25+(this.radius-((h*s)/2)))
 		.attr("y", donut.y+(this.radius-(h/2)))
 
 	el.append('path')
@@ -970,14 +978,17 @@ window.BBGA.Huizen.prototype.createDonutDate=function(data) {
 
 	this.date.enter()
 		.append("text")
-			.attr("class", "donut date")
+			.attr("class", "date")
 			.attr("transform", "translate("+ 0 +","+(this.getInnerHeight()+55)+")")
 		.text(function(d) { return d; });
 }
 
 window.BBGA.Huizen.prototype.createLegend=function(data) {
 	var self = this;
-	text = this.svg.selectAll('.legend.text')
+	var legend = this.svg.append('g')
+		.attr("class", "legend");
+
+	text = legend.selectAll('.legend .text')
 		.data(data, function(d, i) {
 			return d;
 		})
@@ -995,7 +1006,7 @@ window.BBGA.Huizen.prototype.createLegend=function(data) {
 			.style("opacity", 0)
 			.style("text-anchor", "start")
 			.attr("class", function(d, i) {
-				return "legend text text-"+i;
+				return "text text-"+i;
 			})
 			.text(function(d) { return d; })
 			.attr("transform", function(d, i) {
@@ -1004,12 +1015,12 @@ window.BBGA.Huizen.prototype.createLegend=function(data) {
 
 		tmp.style("opacity", 1);
 
-	this.svg.selectAll('.legend.block')
+	legend.selectAll('.legend .block')
 		.data(data)
 		.enter()
 			.append("rect")
 				.attr("class", function(d, i) {
-					return "legend block block-"+i;
+					return "block block-"+i;
 				})
 				.attr("width", "12")
 				.attr("height", "12")

@@ -27,7 +27,6 @@ body {
     font-size: 11px;
 }
 
-
 .bbga_personen .axis line {
     display: none;
 }
@@ -76,63 +75,63 @@ body {
     font-weight: 800;
 }
 
-.bbga_personen .legend.block-1, .bbga_huizen .custom.block-1, .bbga_huizen .custom .woz .block-1 {
+.bbga_personen .legend.block-1, .bbga_huizen .woz .numbers .block-1, .bbga_huizen .area .block-1 {
     fill: #FF0000;
 }
 
-.bbga_personen .legend.block-0, .bbga_huizen .custom.block-0, .bbga_huizen .custom .woz .block-0 {
+.bbga_personen .legend.block-0, .bbga_huizen .woz .numbers .block-0, .bbga_huizen .area .block-0 {
     fill: #AAAAAA;
 }
 
-.bbga_huizen .custom.woz.text {
+.bbga_huizen .woz .numbers .text {
     fill: #fff;
     font-size: 19px;
 }
 
-.bbga_huizen .legend.text-0, .bbga_huizen .legend.text-2 {
+.bbga_huizen .legend .text-0, .bbga_huizen .legend .text-2 {
     fill: black;
     font-size: 15px;
 }
 
-.bbga_huizen .donut.text-0, .bbga_huizen .donut.text-2 {
+.bbga_huizen .donut .circle .text-0, .bbga_huizen .donut .circle .text-2 {
     fill: white;
     font-size: 15px;
 }
 
-.bbga_huizen .donut.text-1 {
+.bbga_huizen .donut .circle .text-1 {
     fill: black;
     font-size: 15px;
 }
 
-.bbga_huizen .legend.text-1{
+.bbga_huizen .legend .text-1{
     font-size: 15px;
 }
 
-.bbga_huizen .wozdesc {
+.bbga_huizen .woz .desc {
     font-size: 15px;
 }
 
-.bbga_huizen .legend {
+.bbga_huizen .legend .text {
     fill: black;
 }
 
-.bbga_huizen .legend.block-0 {
+.bbga_huizen .legend .block-0 {
     fill: #00A0E6;
 }
 
-.bbga_huizen .legend.block-1 {
+.bbga_huizen .legend .block-1 {
     fill: #CCCCCC;
 }
 
-.bbga_huizen .legend.block-2 {
+.bbga_huizen .legend .block-2 {
     fill: #666666;
 }
 
-.bbga_huizen .custom.text {
+.bbga_huizen .woz .text {
     fill: #000;
 }
 
-.bbga_huizen .custom.gem.text {
+.bbga_huizen .woz .area .text {
     font-weight: 800;
 }
 

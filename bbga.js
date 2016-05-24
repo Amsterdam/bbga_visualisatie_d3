@@ -527,11 +527,7 @@ window.BBGA.Personen.prototype.createDate=function(data) {
 
 window.BBGA.Personen.prototype.create=function(obj, data) {
 	obj.setAttribute('class', 'bbga_personen');
-
-	labels = [];
-	labels[0] = data['BEVPAARMKINDHH_P']['meta']['label'];
-	labels[1] = data['BEV65PLUS_P']['meta']['label'];
-	labels[2] = data['BEVOVNW_P']['meta']['label'];
+	var var_waardes = ['BEVPAARMKINDHH_P', 'BEV65PLUS_P', 'BEVOVNW_P'];
 
 	year = data['BEV65PLUS_P']['meta']['jaar'];
 
@@ -539,44 +535,27 @@ window.BBGA.Personen.prototype.create=function(obj, data) {
 	legend[0] = data['BEV65PLUS_P']['data'][0]['label'];
 	legend[1] = data['BEV65PLUS_P']['data'][1]['label'];
 
+	labels = [];
 	waardes = [];
-	waardes[0] = [];
-	waardes[1] = [];
-	waardes[2] = [];
-	waardes[0][0] = NaN; waardes[0][1] = NaN; waardes[1][0] = NaN;
-	waardes[1][1] = NaN; waardes[2][0] = NaN; waardes[2][1] = NaN;
-	if('BEV65PLUS_P' in data) {
-		if('data' in data['BEV65PLUS_P']) {
-			if(data['BEV65PLUS_P']['data'].length == 2) {
-				if('waarde' in data['BEV65PLUS_P']['data'][0]) {
-					waardes[0][0] = data['BEV65PLUS_P']['data'][0]['waarde'];
-				}
-				if('waarde' in data['BEV65PLUS_P']['data'][1]) {
-					waardes[0][1] = data['BEV65PLUS_P']['data'][1]['waarde'];
+	for(i in var_waardes) {
+		waardes[i] = [];
+		labels[i] = '';
+		waardes[i][0] = NaN;
+		waardes[i][1] = NaN;
+		if(var_waardes[i] in data) {
+			if('meta' in data[var_waardes[i]]) {
+				if('label' in data[var_waardes[i]]['meta']) {
+					labels[i] = data[var_waardes[i]]['meta']['label'];
 				}
 			}
-		}
-	}
-	if('BEVPAARMKINDHH_P' in data) {
-		if('data' in data['BEVPAARMKINDHH_P']) {
-			if(data['BEVPAARMKINDHH_P']['data'].length == 2) {
-				if('waarde' in data['BEVPAARMKINDHH_P']['data'][0]) {
-					waardes[1][0] = data['BEVPAARMKINDHH_P']['data'][0]['waarde'];
-				}
-				if('waarde' in data['BEVPAARMKINDHH_P']['data'][1]) {
-					waardes[1][1] = data['BEVPAARMKINDHH_P']['data'][1]['waarde'];
-				}
-			}
-		}
-	}
-	if('BEVOVNW_P' in data) {
-		if('data' in data['BEVOVNW_P']) {
-			if(data['BEVOVNW_P']['data'].length == 2) {
-				if('waarde' in data['BEVOVNW_P']['data'][0]) {
-					waardes[2][0] = data['BEVOVNW_P']['data'][0]['waarde'];
-				}
-				if('waarde' in data['BEVOVNW_P']['data'][1]) {
-					waardes[2][1] = data['BEVOVNW_P']['data'][1]['waarde'];
+			if('data' in data[var_waardes[i]]) {
+				if(data[var_waardes[i]]['data'].length == 2) {
+					if('waarde' in data[var_waardes[i]]['data'][0]) {
+						waardes[i][0] = data[var_waardes[i]]['data'][0]['waarde'];
+					}
+					if('waarde' in data[var_waardes[i]]['data'][1]) {
+						waardes[i][1] = data[var_waardes[i]]['data'][1]['waarde'];
+					}
 				}
 			}
 		}
@@ -631,15 +610,14 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 	this.radius = (Math.min(this.getInnerWidth(), this.getInnerHeight()) / 2)-10;
 	
 	nrNaN = 0;
+	nrGroups = data.length;
 	for(i in data) {
 		if(isNaN(data[i]) == true || data[i] == 0) {
 			nrNaN++;
 		}
 	}
-	if(nrNaN == data.length) {
-		for(i in data) {
-			data[i] = Math.round(100/data.length);
-		}
+	if(nrNaN == nrGroups) {
+		data = [100];
 	}
 	
 	this.arc = d3.svg.arc()
@@ -675,17 +653,10 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 			.attr('transform', 'translate(' + ((this.getInnerWidth() / 2)-150) + ',' + (this.getInnerHeight() / 2) + ')')
 			.attr('d', this.arc)
 			.attr('fill', function(d, i) { 
-				if(nrNaN == data.length) {
+				if(nrNaN == nrGroups) {
 					switch(i) {
 						case 0:
-							return '#CCCCCC';
-						break;
-						default:
-						case 1:
-							return '#EEEEEE';
-						break;
-						case 2:
-							return '#DDDDDD';
+							return '#EBEBEB';
 						break;
 					}
 				} else {
@@ -724,8 +695,8 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 				return "donut text text-"+i;
 			})
 			.text(function(d, i) {
-				if(nrNaN == data.length) {
-					return '?';
+				if(nrNaN == nrGroups) {
+					return '';
 				} else if(isNaN(d.data) == false) {
 					return d.data+"%";
 				} else {
@@ -1045,42 +1016,27 @@ window.BBGA.Huizen.prototype.createLegend=function(data) {
 
 window.BBGA.Huizen.prototype.create=function(obj, data) {
 	obj.setAttribute('class', 'bbga_huizen');
-
-	labels = [];
-	labels[0] = data['WKOOP_P']['meta']['label'];
-	labels[1] = data['WCORHUUR_P']['meta']['label'];
-	labels[2] = data['WPARTHUUR_P']['meta']['label'];
+	var var_waardes = ['WKOOP_P', 'WCORHUUR_P', 'WPARTHUUR_P'];
 	
 	year = data['WPARTHUUR_P']['meta']['jaar'];
 	yearw = data['WWOZ_M2']['meta']['jaar'];
 
+	labels = [];
 	waardes = [];
-	waardes[0] = NaN;
-	waardes[1] = NaN;
-	waardes[2] = NaN;
-	if('WKOOP_P' in data) {
-		if('data' in data['WKOOP_P']) {
-			if(data['WKOOP_P']['data'].length == 1) {
-				if('waarde' in data['WKOOP_P']['data'][0]) {
-					waardes[0] = Math.round(data['WKOOP_P']['data'][0]['waarde']);
+	for(i in var_waardes) {
+		waardes[i] = NaN;
+		labels[i] = '';
+		if(var_waardes[i] in data) {
+			if('meta' in data[var_waardes[i]]) {
+				if('label' in data[var_waardes[i]]['meta']) {
+					labels[i] = data[var_waardes[i]]['meta']['label'];
 				}
 			}
-		}
-	}
-	if('WCORHUUR_P' in data) {
-		if('data' in data['WCORHUUR_P']) {
-			if(data['WCORHUUR_P']['data'].length == 1) {
-				if('waarde' in data['WCORHUUR_P']['data'][0]) {
-					waardes[1] = Math.round(data['WCORHUUR_P']['data'][0]['waarde']);
-				}
-			}
-		}
-	}
-	if('WPARTHUUR_P' in data) {
-		if('data' in data['WPARTHUUR_P']) {
-			if(data['WPARTHUUR_P']['data'].length == 1) {
-				if('waarde' in data['WPARTHUUR_P']['data'][0]) {
-					waardes[2] = Math.round(data['WPARTHUUR_P']['data'][0]['waarde']);
+			if('data' in data[var_waardes[i]]) {
+				if(data[var_waardes[i]]['data'].length == 1) {
+					if('waarde' in data[var_waardes[i]]['data'][0]) {
+						waardes[i] = Math.round(data[var_waardes[i]]['data'][0]['waarde']);
+					}
 				}
 			}
 		}

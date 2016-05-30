@@ -12,6 +12,11 @@
     height: 300px;
 }
 
+.bbga_huizen {
+    width: 500px;
+    height: 275px;
+}
+
 body {
     font-family: "Liberation Sans";
     font-size: 13px;

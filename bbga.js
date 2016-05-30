@@ -510,6 +510,9 @@ window.BBGA.Personen.prototype.createBar=function(data) {
 }
 
 window.BBGA.Personen.prototype.createDate=function(data) {
+	if(isNaN(data) == true || data == null) {
+		data = 'onbekend';
+	}
 	tmp = this.svg.selectAll('.date')
 		.data(['peildatum '+data])
 	tmp.exit()
@@ -529,7 +532,14 @@ window.BBGA.Personen.prototype.create=function(obj, data) {
 	obj.setAttribute('class', 'bbga_personen');
 	var var_waardes = ['BEVPAARMKINDHH_P', 'BEV65PLUS_P', 'BEVOVNW_P'];
 
-	year = data['BEV65PLUS_P']['meta']['jaar'];
+	year = NaN;
+	if('BEV65PLUS_P' in data) {
+		if('meta' in data['BEV65PLUS_P']) {
+			if('jaar' in data['BEV65PLUS_P']['meta']) {
+				year = data['BEV65PLUS_P']['meta']['jaar'];
+			}
+		}
+	}
 
 	legend = [];
 	legend[0] = data['BEV65PLUS_P']['data'][0]['label'];
@@ -578,8 +588,8 @@ window.BBGA.Huizen = function () {
 	this.width = 600;
 	this.height = 400;
 	this.marginleft = 40;
-	this.margintop = 40;
-	this.marginbottom = 60;
+	this.margintop = 0;
+	this.marginbottom = 0;
 	this.marginright = 30;	
 	this.transition = 750;
 }
@@ -608,7 +618,7 @@ window.BBGA.Huizen.prototype.getInnerHeight=function() {
 
 window.BBGA.Huizen.prototype.createDonut=function(data) {
 	var self = this;
-	this.radius = (Math.min(this.getInnerWidth(), this.getInnerHeight()) / 2)-10;
+	this.radius = (Math.min(this.getInnerWidth(), 225) / 2);
 	
 	nrNaN = 0;
 	nrGroups = data.length;
@@ -651,7 +661,7 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 		tmp = this.donut.enter()
 			.append('path')
 			.attr("class", "piece")
-			.attr('transform', 'translate(' + ((this.getInnerWidth() / 2)-150) + ',' + (this.getInnerHeight() / 2) + ')')
+			.attr('transform', 'translate(' + ((this.getInnerWidth() / 2)-140) + ',' + (225 / 2) + ')')
 			.attr('d', this.arc)
 			.attr('fill', function(d, i) { 
 				if(nrNaN == nrGroups) {
@@ -702,7 +712,7 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 			.text(function(d, i) {
 				if(nrNaN == nrGroups) {
 					return '?';
-				} else if(isNaN(d.data) == false) {
+				} else if(isNaN(d.data) == false && d.data > 0) {
 					return d.data+"%";
 				} else {
 					return '';
@@ -710,7 +720,7 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 			})
 			.attr("transform", function(d) {
 				var x = self.arc.centroid(d);
-				return "translate(" + (((x[0]+(self.getInnerWidth()/2))-150)-(this.getBBox().width/2)) + ", " + ((x[1]+(self.getInnerHeight()/2))+(this.getBBox().height/4)) + ")";
+				return "translate(" + (((x[0]+(self.getInnerWidth()/2))-140)-(this.getBBox().width/2)) + ", " + ((x[1]+(225/2))+(this.getBBox().height/4)) + ")";
 			})
 			
 		if(this.transition > 0) {
@@ -725,7 +735,7 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 	var woz_top = 155;
 	var woz_height = 30;
 	var woz_width = 30;
-	var woz_left = 130;
+	var woz_left = 95;
 	var padding = 10;
 	/*
 	 * De BBOX geeft op een iPad verkeerde waardes,
@@ -854,14 +864,14 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 			})
 			.text(function(d) { return d; })
 			.attr("transform", function(d, i) {
-				return "translate("+(self.getInnerWidth()-265)+",160)"
+				return "translate("+(self.getInnerWidth()-220)+",160)"
 			})
 			
 	/*
 	 * Huisjes
 	 */
 	var donut = d3.select('.donut .circle').node().getBBox();
-	h = 100;
+	h = 115;
 	s = Math.abs(55.08/47.82)
 	el = this.svg
 		.append('svg')
@@ -869,7 +879,7 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 		.attr("viewBox", "0 0 55.08 47.82")
 		.attr("width", (h * s))
 		.attr("height", h)
-		.attr("x", -25+(this.radius-((h*s)/2)))
+		.attr("x", -40+(this.radius-((h*s)/2)))
 		.attr("y", donut.y+(this.radius-(h/2)))
 
 	el.append('path')
@@ -952,6 +962,9 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 }
 
 window.BBGA.Huizen.prototype.createDate=function(data) {
+	if(isNaN(data) == true || data == null) {
+		data = 'onbekend';
+	}	
 	tmp = this.svg.selectAll('.woz.date')
 		.data(["*peildatum "+data])
 
@@ -968,6 +981,9 @@ window.BBGA.Huizen.prototype.createDate=function(data) {
 }
 
 window.BBGA.Huizen.prototype.createDonutDate=function(data) {
+	if(isNaN(data) == true || data == null) {
+		data = 'onbekend';
+	}	
 	this.date = this.svg.selectAll('.donut.date')
 		.data(["peildatum "+data], function(d) {
 			return d;
@@ -979,11 +995,12 @@ window.BBGA.Huizen.prototype.createDonutDate=function(data) {
 	this.date.enter()
 		.append("text")
 			.attr("class", "date")
-			.attr("transform", "translate("+ 0 +","+(this.getInnerHeight()+55)+")")
+			.attr("transform", "translate("+ -35 +","+(200+55)+")")
 		.text(function(d) { return d; });
 }
 
 window.BBGA.Huizen.prototype.createLegend=function(data) {
+	var padding = 40;
 	var self = this;
 	var legend = this.svg.append('g')
 		.attr("class", "legend");
@@ -1010,7 +1027,7 @@ window.BBGA.Huizen.prototype.createLegend=function(data) {
 			})
 			.text(function(d) { return d; })
 			.attr("transform", function(d, i) {
-				return "translate("+(self.getInnerWidth()-245)+","+(20+(i*40)+(10))+")"
+				return "translate("+(self.getInnerWidth()-205)+","+(self.margintop+(i*padding)+(10))+")"
 			})
 
 		tmp.style("opacity", 1);
@@ -1025,7 +1042,7 @@ window.BBGA.Huizen.prototype.createLegend=function(data) {
 				.attr("width", "12")
 				.attr("height", "12")
 				.attr("transform", function(d, i) {
-					return "translate("+(self.getInnerWidth()-260)+","+(20+(i*40))+")"
+					return "translate("+(self.getInnerWidth()-220)+","+(self.margintop+(i*padding))+")"
 				})
 }
 
@@ -1033,8 +1050,22 @@ window.BBGA.Huizen.prototype.create=function(obj, data) {
 	obj.setAttribute('class', 'bbga_huizen');
 	var var_waardes = ['WKOOP_P', 'WCORHUUR_P', 'WPARTHUUR_P'];
 	
-	year = data['WPARTHUUR_P']['meta']['jaar'];
-	yearw = data['WWOZ_M2']['meta']['jaar'];
+	year = NaN;
+	if('WPARTHUUR_P' in data) {
+		if('meta' in data['WPARTHUUR_P']) {
+			if('jaar' in data['WPARTHUUR_P']['meta']) {
+				year = data['WPARTHUUR_P']['meta']['jaar'];
+			}
+		}
+	}
+	yearw = NaN;
+	if('WWOZ_M2' in data) {
+		if('meta' in data['WWOZ_M2']) {
+			if('jaar' in data['WWOZ_M2']['meta']) {
+				yearw = data['WWOZ_M2']['meta']['jaar'];
+			}
+		}
+	}	
 
 	labels = [];
 	waardes = [];

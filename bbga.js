@@ -716,7 +716,7 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 			})
 			.text(function(d, i) {
 				if(nrNaN == nrGroups) {
-					return 'Onbekend';
+					return 'onbekend';
 				} else if(isNaN(d.data) == false) {
 					if(d.data > 4) {
 						return d.data+"%";

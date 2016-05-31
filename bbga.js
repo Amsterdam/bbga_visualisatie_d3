@@ -667,7 +667,7 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 				if(nrNaN == nrGroups) {
 					switch(i) {
 						case 0:
-							return '#EEEEEE';
+							return '#FFF';
 						break;
 					}
 				} else {
@@ -683,6 +683,11 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 							return '#666666';
 						break;
 					}
+				}
+			})
+			.attr('stroke', function(d, i) { 
+				if(nrNaN == nrGroups) {
+					return '#E8E8E8';
 				}
 			})
 			.each(function(d) { 
@@ -704,16 +709,20 @@ window.BBGA.Huizen.prototype.createDonut=function(data) {
 			.style("opacity", 0)
 			.attr("class", function(d, i) {
 				if(nrNaN == nrGroups) {
-					return "text text-1";
+					return "text text-onb";
 				} else {
 					return "text text-"+i;
 				}
 			})
 			.text(function(d, i) {
 				if(nrNaN == nrGroups) {
-					return '?';
-				} else if(isNaN(d.data) == false && d.data > 0) {
-					return d.data+"%";
+					return 'Onbekend';
+				} else if(isNaN(d.data) == false) {
+					if(d.data > 4) {
+						return d.data+"%";
+					} else if(d.data > 0) {
+						return d.data;
+					}
 				} else {
 					return '';
 				}
@@ -774,9 +783,9 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 			.text(function(d) { return d; })
 			.attr("transform", function(d, i) {
 				if(i == 0) {
-					return "translate("+((self.getInnerWidth()-woz_left)-(this.getBBox().width)-(21+(padding/2)))+","+ (woz_top+woz_height+35+this.getBBox().height) + ")"
+					return "translate("+((self.getInnerWidth()-woz_left)-(this.getBBox().width)-(21+(padding/2)))+","+ (woz_top+woz_height+35+16) + ")"
 				} else {
-					return "translate("+((self.getInnerWidth()-woz_left)+21+(padding/2))+","+ (woz_top+woz_height+35+this.getBBox().height) + ")"
+					return "translate("+((self.getInnerWidth()-woz_left)+21+(padding/2))+","+ (woz_top+woz_height+35+16) + ")"
 				}
 			})
 
@@ -854,7 +863,7 @@ window.BBGA.Huizen.prototype.createInfo=function(a, b) {
 	}
 
 	woz = wozgroup.selectAll('.desc')
-		.data(["*gemiddelde WOZ-waarde per m²"], function(d, i) {
+		.data(["gemiddelde WOZ-waarde* per m²"], function(d, i) {
 			return d;
 		})
 		.enter()
@@ -974,7 +983,7 @@ window.BBGA.Huizen.prototype.createDate=function(data) {
 	tmp.enter()
 		.append("text")
 			.attr("class", "woz date")
-			.attr("transform", "translate("+((this.getInnerWidth()-125))+","+ (255) + ")")
+			.attr("transform", "translate("+((this.getInnerWidth()-71))+","+ (255) + ")")
 			.text(function(d) { return d; });
 
 	tmp.text(function(d) { return d; });
@@ -1093,8 +1102,8 @@ window.BBGA.Huizen.prototype.create=function(obj, data) {
 	legend[1] = data['WWOZ_M2']['data'][1]['label'];
 	
 	waardes1 = [];
-	waardes1[0] = '?';
-	waardes1[1] = '?';
+	waardes1[0] = 'onbekend';
+	waardes1[1] = 'onbekend';
 	if('WWOZ_M2' in data) {
 		if(data['WWOZ_M2']['data'].length >= 1) {
 			if('waarde' in data['WWOZ_M2']['data'][0]) {

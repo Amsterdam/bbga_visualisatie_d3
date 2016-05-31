@@ -14,8 +14,8 @@
 
 .bbga_huizen {
     width: 500px;
-    height: 275px;
-}
+    height: 258px;
+	}
 
 body {
     font-family: "Liberation Sans";
@@ -74,6 +74,7 @@ body {
 .bbga_personen .date, .bbga_huizen .date {
     font-style: italic;
     fill: #AAAAAA;
+		font-size: 13.6px;
 }
 
 .bbga_personen .legend {
@@ -95,11 +96,14 @@ body {
 
 .bbga_huizen .legend .text-0, .bbga_huizen .legend .text-2 {
     fill: black;
-    font-size: 15px;
 }
 
 .bbga_huizen .donut .circle .text-0, .bbga_huizen .donut .circle .text-2 {
     fill: white;
+}
+
+.bbga_huizen .donut .circle .text-onb {
+    fill: #bebebe;
     font-size: 15px;
 }
 
@@ -108,12 +112,8 @@ body {
     font-size: 15px;
 }
 
-.bbga_huizen .legend .text-1{
-    font-size: 15px;
-}
-
 .bbga_huizen .woz .desc {
-    font-size: 15px;
+    font-size: 16.7px;
 }
 
 .bbga_huizen .legend .text {

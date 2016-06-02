@@ -7,20 +7,20 @@
     url("liberation-sans.svg#Liberation Sans") format("svg");
 }
 
-.bbga_personen, .bbga_huizen {
+.bbga_personen,
+.bbga_huizen {
     width: 500px;
+    font-family: 'Liberation Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.bbga_personen {
     height: 300px;
 }
 
 .bbga_huizen {
-    width: 500px;
     height: 258px;
-	}
-
-body {
-    font-family: "Liberation Sans";
-    font-size: 13px;
-    font-weight: 400;
 }
 
 .bbga_personen .x-axis text {

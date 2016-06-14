@@ -318,9 +318,9 @@ window.BBGA.Personen.prototype.createLegend=function(data) {
 				.text(function(d) { return d; })
 				.attr("transform", function(d, i) {
 					if(i == 0) {
-						return "translate("+((self.getInnerWidth()/2)-(this.getBBox().width)-25)+","+(self.getInnerHeight()+self.marginbottom-1)+")"
+						return "translate("+((self.getInnerWidth()/2)-(this.getBBox().width)-25)+","+(self.getInnerHeight()+self.marginbottom-3)+")"
 					} else {
-						return "translate("+((self.getInnerWidth()/2)+25)+","+(self.getInnerHeight()+self.marginbottom-1)+")"
+						return "translate("+((self.getInnerWidth()/2)+25)+","+(self.getInnerHeight()+self.marginbottom-3)+")"
 					}
 				})
 
@@ -340,9 +340,9 @@ window.BBGA.Personen.prototype.createLegend=function(data) {
 				.attr("height", "12")
 				.attr("transform", function(d, i) {
 					if(i == 0) {
-						return "translate("+((self.getInnerWidth()/2)-(this.getBBox().width)-6)+","+(self.getInnerHeight()+self.marginbottom-12)+")"
+						return "translate("+((self.getInnerWidth()/2)-(this.getBBox().width)-6)+","+(self.getInnerHeight()+self.marginbottom-14)+")"
 					} else {
-						return "translate("+((self.getInnerWidth()/2)+6)+","+(self.getInnerHeight()+self.marginbottom-12)+")"
+						return "translate("+((self.getInnerWidth()/2)+6)+","+(self.getInnerHeight()+self.marginbottom-14)+")"
 					}
 				})
 				// .attr("dy", ".35em");

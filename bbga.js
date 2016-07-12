@@ -530,7 +530,7 @@ window.BBGA.Personen.prototype.createDate=function(data) {
 
 window.BBGA.Personen.prototype.create=function(obj, data) {
 	obj.setAttribute('class', 'bbga_personen');
-	var var_waardes = ['BEVPAARMKINDHH_P', 'BEV65PLUS_P', 'BEVOVNW_P'];
+	var var_waardes = ['BEVHHMKIND_P', 'BEV65PLUS_P', 'BEVNW_P'];
 
 	year = NaN;
 	if('BEV65PLUS_P' in data) {

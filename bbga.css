@@ -149,7 +149,11 @@
 }
 
 .bbga_personen .icona3 .cls-2 {
-    fill: #fff;
+    fill: #f00;
+}
+
+.bbga_personen .icona3 .cls-3 {
+    fill: #f00;
 }
 
 .bbga_huizen .iconb1 .cls-1 {
